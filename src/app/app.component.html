@@ -1,0 +1,77 @@
+<mui-org-chart
+  [topEmployee]="topEmployee"
+  direction="vertical"
+  (itemClick)="isClicked($event)"
+  (click)="showBasicDialog()"
+  data-bs-target="#staticBackdrop"
+></mui-org-chart>
+
+<!-- prime ng dialog -->
+
+<p-dialog
+  *ngIf="!isEmail"
+  header="Header"
+  [(visible)]="displayBasic"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <p-radioButton
+    name="groupname"
+    [(ngModel)]="radioVal.value"
+    value="email"
+    [(ngModel)]="selectedValue"
+    label="Email"
+  ></p-radioButton>
+  <p-radioButton
+    name="groupname"
+    [(ngModel)]="radioVal.value"
+    value="sms"
+    [(ngModel)]="selectedValue"
+    label="SMS"
+  ></p-radioButton>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayBasic = false; whichRadioClicked(radioVal.value)"
+      label="Yes"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="displayBasic = false"
+      label="No"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<!-- ends here -->
+
+<!-- modal for slide menu -->
+
+<p-dialog
+  *ngIf="isEmail"
+  [(visible)]="displayBasic"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <p-slideMenu
+    id="myModal"
+    [model]="items"
+    [viewportHeight]="250"
+    (click)="tabCalled($event)"
+  ></p-slideMenu>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayBasic = false"
+      label="Yes"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="displayBasic = false"
+      label="No"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<!-- ends here -->
