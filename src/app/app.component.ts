@@ -47,25 +47,25 @@ export class AppComponent {
   position: string;
 
   showModalDialog() {
-      this.displayModal = true;
+    this.displayModal = true;
   }
 
   showBasicDialog() {
-      this.displayBasic = true;
+    this.displayBasic = true;
   }
 
   showBasicDialog2() {
     this.displayBasic2 = true;
-}
+  }
 
-showMaximizableDialog() {
+  showMaximizableDialog() {
     this.displayMaximizable = true;
-}
+  }
 
-showPositionDialog(position: string) {
+  showPositionDialog(position: string) {
     this.position = position;
     this.displayPosition = true;
-}
+  }
 
   // -----//
   items: MenuItem[];
@@ -127,7 +127,8 @@ showPositionDialog(position: string) {
       {
         id: 2,
         name: 'email',
-        imageUrl: 'https://icons.iconarchive.com/icons/icojam/blue-bits/32/math-add-icon.png',
+        imageUrl:
+          'https://icons.iconarchive.com/icons/icojam/blue-bits/32/math-add-icon.png',
         subordinates: [],
       },
     ];
@@ -149,6 +150,9 @@ showPositionDialog(position: string) {
     }
   }
   endCalled(endEvent: any): void {
+    if (endEvent.item['items'] == undefined) {
+      this.displayBasic = false;
+    }
     console.log('end');
     console.log(endEvent);
     let endNode = {
@@ -162,29 +166,31 @@ showPositionDialog(position: string) {
     //  document.getElementById("myModal").setAttribute("data-bs-dismiss","modal")
   }
   tabCalled(hello) {
-    console.log();
+    console.log(hello);
   }
   sendTwoMail(twoMailEvent: any) {
+    if (twoMailEvent.item['items'] == undefined) {
+      this.displayBasic = false;
+    }
     let node1 = {
       id: this.recentNodeClicked + 1,
       name: 'Group One',
       imageUrl:
         'https://icons.iconarchive.com/icons/graphicloads/100-flat-2/32/email-icon.png',
-        subordinates: [],
+      subordinates: [],
     };
     let node2 = {
       id: node1.id + 1,
       name: 'Group Two',
       imageUrl:
         'https://icons.iconarchive.com/icons/graphicloads/100-flat-2/32/email-icon.png',
-        subordinates: [],
+      subordinates: [],
     };
     this.recentNodeClicked.subordinates.push(node1);
     this.recentNodeClicked.subordinates.push(node2);
   }
   ngOnInit() {
     this.primengConfig.ripple = true;
-    
 
     this.items = [
       {
@@ -198,6 +204,7 @@ showPositionDialog(position: string) {
               //event.originalEvent: Browser event
               //event.item: menuitem metadata
               this.sendTwoMail(event);
+              console.log(event);
             },
           },
           {
@@ -258,6 +265,7 @@ showPositionDialog(position: string) {
                   {
                     label: 'Print',
                     icon: 'pi pi-fw pi-print',
+                    items: [],
                   },
                 ],
               },
